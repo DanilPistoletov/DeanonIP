@@ -36,25 +36,9 @@ def who2(ip):
                 break
     except:
         pass
-    import urllib.request
-    import json
-    import os
-    url = "https://ipinfo.io/" + ip + "/json"
-    try:
-        getInfo = urllib.request.urlopen(url)
-    except:
-        print("Неверный IP")
-    try:
-        infoList = json.load(getInfo)
-    except:
-        pass
-    def whoisIPinfo(ip):
-        try:
-            myComand = "whois " + ip
-            whoisInfo = os.popen(myComand).read()
-            return whoisInfo
-        except:
-            return "Не удалось получить информацию"
+    import requests
+    infoList1 = requests.get("https://ipinfo.io/" + ip + "/json")
+    infoList = infoList1.json()
     try:
         print("IP: ", infoList["ip"])
         print("Город: ", infoList["city"])
@@ -68,7 +52,7 @@ def who2(ip):
     except:
         pass
 
-print("""DeanonIP 0.8 by Danil Pistoletov
+print("""DeanonIP 0.9 by Danil Pistoletov
 github.com/DanilPistoletov""")
 test = 0
 while 1:
